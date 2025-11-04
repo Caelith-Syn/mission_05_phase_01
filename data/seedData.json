@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "title": "Gaming Laptop",
+    "description": "15-inch laptop with RTX 4060 and 16GB RAM",
+    "start_price": 1200,
+    "reserve_price": 1500
+  }
+]
