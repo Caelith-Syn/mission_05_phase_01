@@ -1,26 +1,69 @@
 const Item = require("../models/itemModel");
 
-// This controller function handles searching for items based on a search query parameter.
+// This controller function handles searching items based on a search term and optional price filters.
 async function searchItems(req, res) {
   try {
-    const { search } = req.query;
+    const { search, min, max } = req.query;
 
-    // If there is no search term the response will be empty
+    // This validates the search term
     if (!search || !search.trim()) {
       return res.json([]);
     }
 
-    // This will use the index defined in the model for text search
-    const results = await Item.find(
-      { $text: { $search: search.trim() } },
-      {
-        title: 1,
-        description: 1,
-        start_price: 1,
-        reserve_price: 1,
-        score: { $meta: "textScore" }, // relevance score
+    // This builds the text search query
+    const query = { $text: { $search: search.trim() } };
+
+    // This processes the min and max price filters
+    let priceFilter = {};
+    if (min !== undefined) {
+      const minNum = Number(min);
+      if (Number.isNaN(minNum)) {
+        return res.status(400).json({
+          code: "BAD_REQUEST",
+          message: "min must be a number",
+          details: { min },
+        });
       }
-    )
+      priceFilter.$gte = minNum;
+    }
+
+    if (max !== undefined) {
+      const maxNum = Number(max);
+      if (Number.isNaN(maxNum)) {
+        return res.status(400).json({
+          code: "BAD_REQUEST",
+          message: "max must be a number",
+          details: { max },
+        });
+      }
+      priceFilter.$lte = maxNum;
+    }
+
+    if (
+      priceFilter.$gte !== undefined &&
+      priceFilter.$lte !== undefined &&
+      priceFilter.$gte > priceFilter.$lte
+    ) {
+      return res.status(400).json({
+        code: "BAD_REQUEST",
+        message: "min cannot be greater than max",
+        details: { min, max },
+      });
+    }
+
+    if (priceFilter.$gte !== undefined || priceFilter.$lte !== undefined) {
+      // This will apply the price filter to start_price
+      query.start_price = priceFilter;
+    }
+
+    // This queries the database with the constructed query
+    const results = await Item.find(query, {
+      title: 1,
+      description: 1,
+      start_price: 1,
+      reserve_price: 1,
+      score: { $meta: "textScore" },
+    })
       .sort({ score: { $meta: "textScore" } })
       .lean();
 
