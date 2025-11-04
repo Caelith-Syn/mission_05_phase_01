@@ -21,6 +21,34 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok", db: dbState });
 });
 
+// This is a smoke test endpoint to verify that the Item model is working correctly.
+// This endpoint creates a sample item, retrieves it, and then deletes it.
+
+const Item = require("./models/itemModel");
+
+app.get("/__test_model", async (req, res) => {
+  try {
+    const sample = await Item.create({
+      title: "Test Item",
+      description: "Just a temporary test insert",
+      start_price: 10,
+      reserve_price: 20,
+    });
+
+    const found = await Item.findById(sample._id).lean();
+
+    await Item.deleteOne({ _id: sample._id });
+
+    res.json({
+      inserted_id: sample._id,
+      found_title: found.title,
+      ok: true,
+    });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 // This is an immediately invoked async function to connect to the database and start the server
