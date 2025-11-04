@@ -16,5 +16,47 @@
     "description": "27-inch IPS 4K UHD monitor, VESA mount",
     "start_price": 180,
     "reserve_price": 280
+  },
+  {
+    "title": "Mechanical Keyboard",
+    "description": "Hot-swappable switches, RGB backlight, TKL",
+    "start_price": 60,
+    "reserve_price": 120
+  },
+  {
+    "title": "Noise-Cancelling Headphones",
+    "description": "Over-ear wireless ANC headphones, 30hr battery",
+    "start_price": 90,
+    "reserve_price": 160
+  },
+  {
+    "title": "PS5 Console",
+    "description": "Disc edition, 1 controller, original box",
+    "start_price": 450,
+    "reserve_price": 650
+  },
+  {
+    "title": "Coffee Machine",
+    "description": "Semi-automatic espresso machine with steam wand",
+    "start_price": 80,
+    "reserve_price": 150
+  },
+  {
+    "title": "Smartwatch",
+    "description": "GPS, heart-rate monitor, sleep tracking",
+    "start_price": 70,
+    "reserve_price": 140
+  },
+  {
+    "title": "Electric Guitar",
+    "description": "HSS pickup configuration, gig bag included",
+    "start_price": 110,
+    "reserve_price": 220
+  },
+  {
+    "title": "Mountain Bike",
+    "description": "Hardtail MTB, hydraulic brakes, medium frame",
+    "start_price": 300,
+    "reserve_price": 500
   }
 ]
