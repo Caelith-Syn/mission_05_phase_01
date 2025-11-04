@@ -4,5 +4,17 @@
     "description": "15-inch laptop with RTX 4060 and 16GB RAM",
     "start_price": 1200,
     "reserve_price": 1500
+  },
+  {
+    "title": "iPhone 13",
+    "description": "128GB, excellent condition, unlocked",
+    "start_price": 450,
+    "reserve_price": 650
+  },
+  {
+    "title": "4K Monitor",
+    "description": "27-inch IPS 4K UHD monitor, VESA mount",
+    "start_price": 180,
+    "reserve_price": 280
   }
 ]
