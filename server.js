@@ -2,9 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const { connectDB } = require("./config/db");
+const itemRoutes = require("./routes/itemRoutes"); // Import item routes
 
 const app = express();
 app.use(express.json());
+
+// Use item routes for /api path
+app.use("/api", itemRoutes);
 
 // This is a simple Express server setup with a MongoDB connection using Mongoose.
 
